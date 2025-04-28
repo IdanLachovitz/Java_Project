@@ -10,5 +10,4 @@ public class Main {
         College c = new College(name);
         c.run();
     }
-
 }

@@ -65,6 +65,27 @@ public class Util {
             }
         }
         sb.append("]");
+        System.out.println(sb);
+        return sb.toString();
+    }
+
+    public static String printNames(Committees[] arr, int size, Lecturer[] l1, int lectSize){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < size; i++) {
+            sb.append(arr[i].getNameofCommittees());
+            sb.append(": ");
+            for (int j = 0; j < lectSize; j++) {
+                System.out.println(l1[j].getName());
+                sb.append(l1[j].getName());
+            }
+            if (i < size-1 && arr[i] != null){
+                sb.append(", ");
+            } else {
+                break;
+            }
+        }
+        sb.append("]");
         return sb.toString();
     }
 

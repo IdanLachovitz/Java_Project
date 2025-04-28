@@ -2,18 +2,18 @@ package Idan_Lachovitz_Idan_Pekler_Part2;
 
 public class Lecturer {
     private String name;
-    private int id;
+    private String id;
     private eDegree degree;
     public enum eDegree{BSc,MSc,DOCTOR,PROFESSOR};
     private String nameOfDegree;
     private int salary;
     private String department;
 
-    public Lecturer(String name, int id, int degree, int salary, String nameOfDegree) {
+    public Lecturer(String name, String id, int degree, int salary, String nameOfDegree) {
         this(name,id,degree,salary,nameOfDegree,null);
     }
 
-    public Lecturer(String name, int id, int degree,int salary, String nameOfDegree, String department) {
+    public Lecturer(String name, String id, int degree,int salary, String nameOfDegree, String department) {
         setName(name);
         setId(id);
         setDegree(degree);
@@ -30,11 +30,11 @@ public class Lecturer {
         this.name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

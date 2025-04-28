@@ -4,18 +4,19 @@ import java.util.Arrays;
 
 public class Committees {
 
-    private static String nameOfCommittee;
-    private static Lecturer[] lecturers;
-    private static int numOfLecturer;
-    private static Lecturer chairman;
+    private String nameOfCommittee;
+    private Lecturer[] lecturers;
+    private int numOfLecturer;
+    private Lecturer chairman;
 
 
     public Committees(String nameofCommittes, Lecturer chairman) {
         this.nameOfCommittee = nameofCommittes;
         this.chairman = chairman;
         lecturers = new Lecturer[0];
+        this.numOfLecturer = 0;
     }
-    public static void removeLecturerByName(String name) {
+    public void removeLecturerByName(String name) {
         for (int i = 0; i < numOfLecturer; i++) {
             if (lecturers[i].getName().equals(name)) {
                 for (int j = i; j < numOfLecturer - 1; j++) {
@@ -27,7 +28,7 @@ public class Committees {
         }
     }
 
-    public static void addLecturerToCommittee(Lecturer lecturer) {
+    public void addLecturerToCommittee(Lecturer lecturer) {
         if(numOfLecturer==lecturers.length){
             lecturers= Arrays.copyOf(lecturers,numOfLecturer==0?2:numOfLecturer*2);
         }
@@ -47,7 +48,7 @@ public class Committees {
         return lecturers;
     }
 
-    public static void setLecturers (Lecturer lectu){
+    public void setLecturers (Lecturer lectu){
         if (numOfLecturer == lecturers.length) {
             lecturers = Arrays.copyOf(lecturers, numOfLecturer == 0 ? 2 : numOfLecturer * 2);
         }
@@ -62,7 +63,7 @@ public class Committees {
         this.numOfLecturer = numofLecturer;
     }
 
-    public static Lecturer getChairman () {
+    public Lecturer getChairman () {
         return chairman;
     }
 

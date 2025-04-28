@@ -20,14 +20,14 @@ public class College {
             "show Committee Info"
 
     };
-    private static Scanner s = new Scanner(System.in);
+    private Scanner s = new Scanner(System.in);
     private String collegeName;
-    private static Lecturer[] lecturer;
-    private static int numOfLecturer;
-    private static Committees[] committees;
-    private static int numOfCommittee;
-    private static Department[] departments;
-    private static int numOfDepartment;
+    private Lecturer[] lecturer;
+    private int numOfLecturer;
+    private Committees[] committees;
+    private int numOfCommittee;
+    private Department[] departments;
+    private int numOfDepartment;
 
     public College(String collegeName) {
         setCollegeName(collegeName);
@@ -79,16 +79,15 @@ public class College {
                     if (numOfCommittee == committees.length) {
                         committees = Arrays.copyOf(committees, numOfCommittee == 0 ? 2 : numOfCommittee * 2);
                     }
-                    System.out.println(Util.getLecturerFromName(chairman, lecturer));
                     committees[numOfCommittee++] = new Committees(committeeName, Util.getLecturerFromName(chairman, lecturer));
-                    System.out.println(Arrays.toString(committees));
+                    System.out.println(Util.printNames(committees, numOfCommittee, Util.getCommitteeFromName(committeeName,committees).getLecturers(), Util.getCommitteeFromName(committeeName,committees).getNumofLecturer()));
                     break;
                 }
             }
         }
     }
 
-    private static void addLecturer() {
+    private void addLecturer() {
         s.nextLine();
         System.out.println("Enter lecturer name: ");
         String name = s.nextLine();
@@ -102,8 +101,7 @@ public class College {
                     lecturer = Arrays.copyOf(lecturer, numOfLecturer == 0 ? 2 : numOfLecturer * 2);
                 }
                 System.out.println("Enter lecturer id: ");
-                int id = s.nextInt();
-                s.nextLine();
+                String id = s.nextLine();
                 System.out.println("Enter your degree: \n1- BSc\n2- MSc\n3- doctor\n4- professor");
                 int degree = s.nextInt();
                 s.nextLine();
@@ -112,6 +110,12 @@ public class College {
                 System.out.println("Enter your salary: ");
                 int salary = s.nextInt();
                 s.nextLine();
+                while (salary < 0){
+                    System.out.println("Salary cant be negative");
+                    System.out.println("Enter your salary: ");
+                    salary = s.nextInt();
+                    s.nextLine();
+                }
                 System.out.println("Enter the department from the list below (can be empty): ");
                 System.out.println(Util.printArrayNames(departments));
                 String department = s.nextLine();
@@ -124,6 +128,7 @@ public class College {
                         System.out.println(Util.printArrayNames(departments));
                         department = s.nextLine();
                     }
+                    break;
                 }
                 lecturer[numOfLecturer++] = new Lecturer(name, id, degree, salary, nameOfDegree, department);
                 break;
@@ -133,18 +138,27 @@ public class College {
 
     private void addLecturerToCommittee() {
         s.nextLine();
-        System.out.println("Enter lecturer name: ");
-        String name = s.nextLine();
+        System.out.println("Enter committee name: ");
+        String committeeName = s.nextLine();
         while (true) {
-            if (Util.isExist(name, lecturer, numOfLecturer)) {
-                Committees.addLecturerToCommittee(Util.getLecturerFromName(name, lecturer));
-                break;
+            if (Util.isExist(committeeName, committees, numOfCommittee)) {
+                System.out.println("Enter lecturer name: ");
+                String name = s.nextLine();
+                if (Util.isExist(name,lecturer,numOfLecturer)){
+                    if (Util.isExist(name, Util.getCommitteeFromName(committeeName, committees).getLecturers(), Util.getCommitteeFromName(committeeName, committees).getNumofLecturer())){
+                        System.out.println("The lecturer is exist in the committee...");
+                    }else {
+                        Committees c = Util.getCommitteeFromName(committeeName, committees);
+                        c.addLecturerToCommittee(Util.getLecturerFromName(name, lecturer));
+                        break;
+                    }
+                }
             }
-            System.out.println(name + " is not exist...");
-            System.out.println("Enter Lecturer name: ");
-            name = s.nextLine();
+            System.out.println(committeeName + " is not exist...");
+            System.out.println("Enter committee name: ");
+            committeeName = s.nextLine();
         }
-        System.out.println(Arrays.toString(committees));
+        System.out.println(Util.printNames(committees, numOfCommittee, Util.getCommitteeFromName(committeeName,committees).getLecturers(), Util.getCommitteeFromName(committeeName,committees).getNumofLecturer()));
     }
 
     private void updateChairman() {
@@ -183,7 +197,12 @@ public class College {
         String name = s.nextLine();
         while (true) {
             if (Util.isExist(name, lecturer, numOfLecturer)) {
-                Committees.removeLecturerByName(name);
+//                Committees.removeLecturerByName(name);
+                System.out.println("Enter committee name: ");
+                String committeeName = s.nextLine();
+                Committees c = Util.getCommitteeFromName(committeeName, committees);
+                c.removeLecturerByName(name);
+
                 break;
             }
             System.out.println(name + " is not exist...");
@@ -194,7 +213,7 @@ public class College {
     }
 
 
-    private static void addDepartment() {
+    private void addDepartment() {
         s.nextLine();
         System.out.println("Enter department name: ");
         String depName = s.nextLine();
@@ -248,15 +267,14 @@ public class College {
         System.out.println(Arrays.toString(departments));
         String deptName = s.nextLine();
         if (Util.isExist(deptName, departments, numOfDepartment)) {
-            Lecturer[] l1 = Department.getArrLecturer();
+            Lecturer[] l1 = Util.getDepartmentFromName(deptName,departments).getArrLecturer();
             if (Util.getDepartmentFromName(deptName,departments) != null){
                 for (int i = 0; i < Util.getDepartmentFromName(deptName,departments).getNumOfLecturer(); i++) {
-                    sum += lecturer[i].getSalary();
+                    sum += l1[i].getSalary();
                 }
                 System.out.println(sum/Util.getDepartmentFromName(deptName,departments).getNumOfLecturer());
             }
         }
-
     }
 
     private void showInfo(Object[] obj, int numOfObj) {
