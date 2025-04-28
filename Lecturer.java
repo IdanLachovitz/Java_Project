@@ -88,5 +88,4 @@ public class Lecturer {
                 ", department='" + department + '\'' +
                 '}';
     }
-
 }

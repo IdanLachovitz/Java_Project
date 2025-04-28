@@ -287,4 +287,5 @@ public class College {
         System.out.println("Please enter your choose : ");
         return s.nextInt();
     }
+
 }
