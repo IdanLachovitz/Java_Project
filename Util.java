@@ -71,14 +71,28 @@ public class Util {
 
     public static String printNames(Committees[] arr, int size, Lecturer[] l1, int lectSize){
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
         for (int i = 0; i < size; i++) {
-            sb.append(arr[i].getNameofCommittees());
-            sb.append(": ");
+            sb.append("The name of committee:" + arr[i].getNameofCommittees());
+            sb.append(", The chairman is: " + arr[i].getChairman().getName());
+            sb.append(", The Lecturers are: [");
             for (int j = 0; j < lectSize; j++) {
                 System.out.println(l1[j].getName());
-                sb.append(l1[j].getName());
+                if (j == 0){
+                    sb.append(l1[j].getName());
+                }else {
+                    sb.append(", " + l1[j].getName());
+                }
             }
+            sb.append("]");
+        }
+        return sb.toString();
+    }
+
+    public static String printNames(Lecturer[] arr, int size){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lecturers: [");
+        for (int i = 0; i < size; i++) {
+            sb.append(arr[i].getName());
             if (i < size-1 && arr[i] != null){
                 sb.append(", ");
             } else {
@@ -89,8 +103,40 @@ public class Util {
         return sb.toString();
     }
 
-    public static Committees getCommitteeFromName(String name, Committees[]committees){
+    public static String printNames(Lecturer[] arr, int size, String deptName){
+        StringBuilder sb = new StringBuilder();
+        sb.append(deptName + " lecturers are: [");
+        for (int i = 0; i < size; i++) {
+            sb.append(arr[i].getName());
+            if (i < size-1 && arr[i] != null){
+                sb.append(", ");
+            } else {
+                break;
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static String printNames(Department[] arr, int size){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Departments: ");
+        for (int i = 0; i < size; i++) {
+            sb.append(arr[i].getName());
+            if (i < size-1 && arr[i] != null){
+                sb.append(", ");
+            } else {
+                break;
+            }
+        }
+        return sb.toString();
+    }
+
+    public static Committees getCommitteeFromName(String name, Committees[] committees){
         for (Committees committee : committees){
+            if (committee == null){
+                return null;
+            }
             if (committee.getNameofCommittees().equals(name)){
                 return committee;
             }

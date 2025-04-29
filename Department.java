@@ -6,8 +6,8 @@ public class Department {
 
     private String name;
     private int numOfStudent;
-    private static Lecturer[] arrLecturer;
-    private static int numOfLecturer;
+    private Lecturer[] arrLecturer;
+    private int numOfLecturer;
 
     public Department(String name) {
         this.name = name;
@@ -27,18 +27,18 @@ public class Department {
     }
 
     public void setNumOfStudent(int numOfStudent) {
-        numOfStudent = numOfStudent;
+        this.numOfStudent = numOfStudent;
     }
 
-    public static Lecturer[] getArrLecturer() {
+    public Lecturer[] getArrLecturer() {
         return arrLecturer;
     }
 
-    public static int getNumOfLecturer() {
+    public int getNumOfLecturer() {
         return numOfLecturer;
     }
 
-    public static void setArrLecturer(Lecturer lecturer) {
+    public void setArrLecturer(Lecturer lecturer) {
         if (numOfLecturer == arrLecturer.length) {
             arrLecturer = Arrays.copyOf(arrLecturer, numOfLecturer == 0 ? 2 : numOfLecturer * 2);
         }

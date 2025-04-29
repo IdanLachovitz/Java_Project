@@ -16,6 +16,7 @@ public class Committees {
         lecturers = new Lecturer[0];
         this.numOfLecturer = 0;
     }
+
     public void removeLecturerByName(String name) {
         for (int i = 0; i < numOfLecturer; i++) {
             if (lecturers[i].getName().equals(name)) {

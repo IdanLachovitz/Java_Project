@@ -9,11 +9,11 @@ public class Lecturer {
     private int salary;
     private String department;
 
-    public Lecturer(String name, String id, int degree, int salary, String nameOfDegree) {
+    public Lecturer(String name, String id, eDegree degree, int salary, String nameOfDegree) {
         this(name,id,degree,salary,nameOfDegree,null);
     }
 
-    public Lecturer(String name, String id, int degree,int salary, String nameOfDegree, String department) {
+    public Lecturer(String name, String id, eDegree degree,int salary, String nameOfDegree, String department) {
         setName(name);
         setId(id);
         setDegree(degree);
@@ -42,15 +42,8 @@ public class Lecturer {
         return degree;
     }
 
-    public void setDegree(int deg) {
-        // 1- B.S.c 2-MSc 3-doctor 4- professor
-        switch (deg) {
-            case 1 -> this.degree = eDegree.BSc;
-            case 2 -> this.degree = eDegree.MSc;
-            case 3 -> this.degree = eDegree.DOCTOR;
-            case 4 -> this.degree = eDegree.PROFESSOR;
-            default -> this.degree = eDegree.BSc; //default for invalid is first degree
-        }
+    public void setDegree(eDegree deg) {
+        this.degree = deg;
     }
 
     public String getNameOfDegree() {
