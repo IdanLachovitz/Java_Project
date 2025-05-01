@@ -34,6 +34,9 @@ public class College {
 
 
     public eStatus addCommittee(String committeeName, String chairman) {
+        if (Util.getLecturerFromName(chairman, lecturer) == null){
+            return eStatus.LECTURER_DONT_EXIST;
+        }
         if (Util.isExist(committeeName, committees, numOfCommittee)) {
             return eStatus.COMMITTEE_EXIST;
         }
@@ -59,9 +62,7 @@ public class College {
         }else if (Util.getCommitteeFromName(committeeName,committees).getChairman().getName().equals(name)){
             return eStatus.LECTURER_IS_THE_CHAIRMAN;
         } else {
-            Committees c = Util.getCommitteeFromName(committeeName, committees);
-            c.addLecturerToCommittee(Util.getLecturerFromName(name, lecturer));
-
+            Util.getCommitteeFromName(committeeName, committees).addLecturerToCommittee(Util.getLecturerFromName(name, lecturer));
             return eStatus.SUCCESS;
         }
     }
@@ -155,62 +156,75 @@ public class College {
     }
 
 
-
     public String getCollegeName() {
         return collegeName;
     }
+
 
     public void setCollegeName(String collegeName) {
         this.collegeName = collegeName;
     }
 
+
     public Lecturer[] getLecturer() {
         return lecturer;
     }
+
 
     public void setLecturer(Lecturer[] lecturer) {
         this.lecturer = lecturer;
     }
 
+
     public int getNumOfLecturer() {
         return numOfLecturer;
     }
+
 
     public void setNumOfLecturer(int numOfLecturer) {
         this.numOfLecturer = numOfLecturer;
     }
 
+
     public Committees[] getCommittees() {
         return committees;
     }
+
 
     public void setCommittees(Committees[] committees) {
         this.committees = committees;
     }
 
+
     public int getNumOfCommittee() {
         return numOfCommittee;
     }
+
 
     public void setNumOfCommittee(int numOfCommittee) {
         this.numOfCommittee = numOfCommittee;
     }
 
+
     public Department[] getDepartments() {
         return departments;
     }
+
 
     public void setDepartments(Department[] departments) {
         this.departments = departments;
     }
 
+
     public int getNumOfDepartment() {
         return numOfDepartment;
     }
 
+
     public void setNumOfDepartment(int numOfDepartment) {
         this.numOfDepartment = numOfDepartment;
     }
+
 
     private static String str(Object[] arr, int size) {
         StringBuilder sb = new StringBuilder();

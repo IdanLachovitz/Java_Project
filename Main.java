@@ -1,7 +1,7 @@
 package Idan_Lachovitz_Idan_Pekler_Part2;
 
-import java.util.Arrays;
 import java.util.Scanner;
+
 public class Main {
     // idan lachovitz, 322894148 + idan pekler, 207715848
     static Scanner s = new Scanner(System.in);
@@ -43,8 +43,8 @@ public class Main {
                 case 7 -> addLecturerToDepartment(college);
                 case 8 -> showAverageProfessorsSalary(college);
                 case 9 -> showAverageSalaryFromSpecificDepartment(college);
-                case 10 -> showInfo(college.getLecturer(), college.getNumOfLecturer());
-                case 11 -> showInfo(college.getCommittees(), college.getNumOfCommittee());
+                case 10 -> showLecturersInfo(college.getLecturer(), college.getNumOfLecturer());
+                case 11 -> showCommitteesInfo(college.getCommittees(), college.getNumOfCommittee());
 
                 default -> System.out.println("Unexpected value");
             }
@@ -108,9 +108,10 @@ public class Main {
             case SUCCESS -> System.out.println(eStatus.SUCCESS);
             case COMMITTEE_EXIST -> System.out.println(eStatus.COMMITTEE_EXIST);
             case LECTURER_NOT_DOC_OR_PRO -> System.out.println(eStatus.LECTURER_NOT_DOC_OR_PRO);
+            case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
         }
         if (stat == eStatus.SUCCESS){
-            System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
+            System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         }
     }
 
@@ -118,8 +119,10 @@ public class Main {
     private static void addLecturerToCommittee(College college) {
         s.nextLine();
         System.out.println("Enter committee name: ");
+        System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("Enter lecturer name: ");
+        System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String name = s.nextLine();
         eStatus stat = college.addLecturerToCommittee(committeeName, name);
         switch (stat){
@@ -127,9 +130,10 @@ public class Main {
             case COMMITTEE_DONT_EXIST -> System.out.println(eStatus.COMMITTEE_DONT_EXIST);
             case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
             case LECTURER_EXISTS -> System.out.println(eStatus.LECTURER_EXISTS_IN_COMMITTEE);
+            case LECTURER_IS_THE_CHAIRMAN -> System.out.println(eStatus.LECTURER_IS_THE_CHAIRMAN);
         }
         if (stat == eStatus.SUCCESS){
-            System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
+            System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
     }
 
@@ -152,7 +156,7 @@ public class Main {
             case LECTURER_IS_THE_CHAIRMAN -> System.out.println(eStatus.LECTURER_IS_THE_CHAIRMAN);
         }
         if (stat == eStatus.SUCCESS){
-            System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee(), Util.getCommitteeFromName(committeeName,college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName,college.getCommittees()).getNumofLecturer()));
+            System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
     }
 
@@ -171,7 +175,7 @@ public class Main {
             case LECTURER_NOT_EXISTS_IN_COMMITTEE -> System.out.println(eStatus.LECTURER_NOT_EXISTS_IN_COMMITTEE);
         }
         if (stat == eStatus.SUCCESS){
-            System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee(), Util.getCommitteeFromName(committeeName,college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName,college.getCommittees()).getNumofLecturer()));
+            System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
     }
 
@@ -235,13 +239,28 @@ public class Main {
     }
 
 
-    private static void showInfo(Object[] obj, int numOfObj) {
-        if (obj == null){
+    private static void showLecturersInfo(Lecturer[] arr, int numOfLecturers) {
+        StringBuilder sb = new StringBuilder();
+        if (numOfLecturers == 0){
             System.out.println(eStatus.GENERAL_ERROR);
         } else {
-            for (int i = 0; i < numOfObj; i++) {
-                System.out.println(obj[i]);
+            for (int i = 0; i < numOfLecturers; i++) {
+                sb.append("Name: " + arr[i].getName() + " , ID: " + arr[i].getId() + " , Degree: " + arr[i].getDegree() + " , Degree name: " + arr[i].getNameOfDegree() + " , Salary: " + arr[i].getSalary() + " , Department: " + arr[i].getDepartment() + "\n");
             }
+            System.out.println(sb);
+        }
+    }
+
+
+    private static void showCommitteesInfo(Committees[] arr, int numOfCommittees) {
+        StringBuilder sb = new StringBuilder();
+        if (arr == null){
+            System.out.println(eStatus.GENERAL_ERROR);
+        } else {
+            for (int i = 0; i < numOfCommittees; i++) {
+                sb.append("committee name: " + arr[i].getNameofCommittees() + " , The chairman: " + arr[i].getChairman().getName() + " , Lecturers list: " + Util.printNames(arr[i].getLecturers(), arr[i].getNumofLecturer()) + "\n");
+            }
+            System.out.println(sb);
         }
     }
 
