@@ -124,6 +124,7 @@ public class College {
             return eStatus.LECTURER_EXISTS_IN_DEPARTMENT;
         }else {
             Util.getDepartmentFromName(deptName,departments).setArrLecturer(Util.getLecturerFromName(lectName, lecturer));
+            Util.getLecturerFromName(lectName,lecturer).setDepartment(deptName);
             return eStatus.SUCCESS;
         }
     }

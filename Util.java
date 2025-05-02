@@ -138,7 +138,7 @@ public class Util {
 
     public static String printNames(Department[] arr, int size){
         StringBuilder sb = new StringBuilder();
-        sb.append("Departments: ");
+        sb.append("Departments: [");
         for (int i = 0; i < size; i++) {
             sb.append(arr[i].getName());
             if (i < size-1 && arr[i] != null){
@@ -147,6 +147,7 @@ public class Util {
                 break;
             }
         }
+        sb.append("]");
         return sb.toString();
     }
 

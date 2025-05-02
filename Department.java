@@ -18,25 +18,31 @@ public class Department {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
+
 
     public int getNumOfStudent() {
         return numOfStudent;
     }
 
+
     public void setNumOfStudent(int numOfStudent) {
         this.numOfStudent = numOfStudent;
     }
+
 
     public Lecturer[] getArrLecturer() {
         return arrLecturer;
     }
 
+
     public int getNumOfLecturer() {
         return numOfLecturer;
     }
+
 
     public void setArrLecturer(Lecturer lecturer) {
         if (numOfLecturer == arrLecturer.length) {
@@ -53,5 +59,4 @@ public class Department {
                 ", arrLecturer=" + Arrays.toString(arrLecturer) +
                 '}';
     }
-
 }

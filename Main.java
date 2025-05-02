@@ -141,8 +141,10 @@ public class Main {
     private static void updateChairman(College college){
         s.nextLine();
         System.out.println("What Committee: ");
+        System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("enter new head of committee: ");
+        System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String newChairMan = s.nextLine();
         eStatus stat = college.updateChairman(committeeName, newChairMan);
         if (Util.getCommitteeFromName(committeeName,college.getCommittees()) == null){
@@ -164,8 +166,10 @@ public class Main {
     private static void removeFromCommittee(College college) {
         s.nextLine();
         System.out.println("Enter committee name: ");
+        System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("Enter lecturer name: ");
+        System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String name = s.nextLine();
         eStatus stat = college.removeFromCommittee(name, committeeName);
         switch (stat){
@@ -198,8 +202,10 @@ public class Main {
     private static void addLecturerToDepartment(College college) {
         s.nextLine();
         System.out.println("Enter department name: ");
+        System.out.println(Util.printNames(college.getDepartments(), college.getNumOfDepartment()));
         String deptName = s.nextLine();
         System.out.println("Enter lecturer name: ");
+        System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String lectName = s.nextLine();
         eStatus stat = college.addLecturerToDepartment(lectName,deptName);
         switch (stat) {
@@ -258,7 +264,7 @@ public class Main {
             System.out.println(eStatus.GENERAL_ERROR);
         } else {
             for (int i = 0; i < numOfCommittees; i++) {
-                sb.append("committee name: " + arr[i].getNameofCommittees() + " , The chairman: " + arr[i].getChairman().getName() + " , Lecturers list: " + Util.printNames(arr[i].getLecturers(), arr[i].getNumofLecturer()) + "\n");
+                sb.append("committee name: " + arr[i].getNameofCommittees() + " , The chairman: " + arr[i].getChairman().getName() + " , " + Util.printNames(arr[i].getLecturers(), arr[i].getNumofLecturer()) + "\n");
             }
             System.out.println(sb);
         }

@@ -17,11 +17,14 @@ public enum eStatus {
     GENERAL_ERROR("Something Went Wrong..."),
     AVERAGE_SALARY("The average is: ");
 
+
     private final String description;
+
 
     eStatus(String description) {
         this.description = description;
     }
+
 
     @Override
     public String toString() {
