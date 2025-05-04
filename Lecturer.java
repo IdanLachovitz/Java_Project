@@ -1,5 +1,7 @@
 package Idan_Lachovitz_Idan_Pekler_Part2;
 
+import java.util.Arrays;
+
 public class Lecturer {
     private String name;
     private String id;
@@ -8,6 +10,8 @@ public class Lecturer {
     private String nameOfDegree;
     private int salary;
     private String department;
+    private Committees[] committees;
+    private int numOfCommittees;
 
     public Lecturer(String name, String id, eDegree degree, int salary, String nameOfDegree) {
         this(name,id,degree,salary,nameOfDegree,null);
@@ -20,6 +24,7 @@ public class Lecturer {
         setNameOfDegree(nameOfDegree);
         setSalary(salary);
         setDepartment(department);
+        committees = new Committees[0];
     }
 
     public String getName() {
@@ -70,6 +75,25 @@ public class Lecturer {
         this.department = department;
     }
 
+    public Committees[] getCommittees() {
+        return committees;
+    }
+
+    public void setCommittees(Committees committee) {
+        if (numOfCommittees == committees.length) {
+            committees = Arrays.copyOf(committees, numOfCommittees == 0 ? 2 : numOfCommittees * 2);
+        }
+        committees[numOfCommittees++] = committee;
+    }
+
+    public int getNumOfCommittees() {
+        return numOfCommittees;
+    }
+
+    public void setNumOfCommittees(int numOfCommittees) {
+        this.numOfCommittees = numOfCommittees;
+    }
+
     @Override
     public String toString() {
         return "Lecturer{" +
@@ -79,6 +103,7 @@ public class Lecturer {
                 ", nameOfDegree='" + nameOfDegree + '\'' +
                 ", salary=" + salary +
                 ", department='" + department + '\'' +
+                ", committees=" + committees + '\'' +
                 '}';
     }
 }

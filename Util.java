@@ -59,22 +59,6 @@ public class Util {
     }
 
 
-    public static String printArrayNames(Object[] arr){
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < arr.length; i++) {
-            sb.append(arr[i]);
-            if (i < arr.length-1 && arr[i] != null){
-                sb.append(", ");
-            } else {
-                break;
-            }
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-
-
     public static String printNames(Committees[] arr, int size){
         StringBuilder sb = new StringBuilder();
         sb.append("Committees: [");

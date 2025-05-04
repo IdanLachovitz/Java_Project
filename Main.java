@@ -133,6 +133,7 @@ public class Main {
             case LECTURER_IS_THE_CHAIRMAN -> System.out.println(eStatus.LECTURER_IS_THE_CHAIRMAN);
         }
         if (stat == eStatus.SUCCESS){
+            Util.getLecturerFromName(name, college.getLecturer()).setCommittees(Util.getCommitteeFromName(committeeName, college.getCommittees()));
             System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
     }
@@ -251,7 +252,7 @@ public class Main {
             System.out.println(eStatus.GENERAL_ERROR);
         } else {
             for (int i = 0; i < numOfLecturers; i++) {
-                sb.append("Name: " + arr[i].getName() + " , ID: " + arr[i].getId() + " , Degree: " + arr[i].getDegree() + " , Degree name: " + arr[i].getNameOfDegree() + " , Salary: " + arr[i].getSalary() + " , Department: " + arr[i].getDepartment() + "\n");
+                sb.append("Name: " + arr[i].getName() + " , ID: " + arr[i].getId() + " , Degree: " + arr[i].getDegree() + " , Degree name: " + arr[i].getNameOfDegree() + " , Salary: " + arr[i].getSalary() + " , " + Util.printNames(arr[i].getCommittees(),arr[i].getNumOfCommittees()) + " , Department: " + arr[i].getDepartment() + "\n");
             }
             System.out.println(sb);
         }
