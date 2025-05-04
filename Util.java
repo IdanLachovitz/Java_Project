@@ -87,6 +87,20 @@ public class Util {
         return sb.toString();
     }
 
+    public static String printNamesFromCommittee(Committees c1, Lecturer[] l1, int lectSize){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Committee lecturers list: [");
+        for (int j = 0; j < lectSize; j++) {
+            if (j == 0){
+                sb.append(l1[j].getName());
+            }else {
+                sb.append(", " + l1[j].getName());
+            }
+        }
+        sb.append("] \n");
+        return sb.toString();
+    }
+
 
     public static String printNames(Lecturer[] arr, int size){
         StringBuilder sb = new StringBuilder();

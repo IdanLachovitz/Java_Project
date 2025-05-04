@@ -170,7 +170,7 @@ public class Main {
         System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("Enter lecturer name: ");
-        System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
+        System.out.println(Util.printNamesFromCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         String name = s.nextLine();
         eStatus stat = college.removeFromCommittee(name, committeeName);
         switch (stat){
@@ -234,6 +234,7 @@ public class Main {
     private static void showAverageSalaryFromSpecificDepartment(College college) {
         s.nextLine();
         System.out.println("Enter department name: ");
+        System.out.println(Util.printNames(college.getDepartments(), college.getNumOfDepartment()));
         String deptName = s.nextLine();
         float sum = college.showAverageSalaryFromSpecificDepartment(deptName);
         if (sum == -1){
