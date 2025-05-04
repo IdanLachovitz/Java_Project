@@ -64,7 +64,7 @@ public class Util {
         sb.append("Committees: [");
         for (int i = 0; i < size; i++) {
             if (i == 0) sb.append(arr[i].getNameofCommittees());
-            else sb.append(", " + arr[i].getNameofCommittees());
+            else sb.append(", ").append(arr[i].getNameofCommittees());
         }
         sb.append("]");
         return sb.toString();
@@ -73,28 +73,29 @@ public class Util {
 
     public static String printNames(Committees c1, Lecturer[] l1, int lectSize){
         StringBuilder sb = new StringBuilder();
-        sb.append("Committee name: " + c1.getNameofCommittees());
-        sb.append(" , The chairman: " + c1.getChairman().getName());
+        sb.append("Committee name: ").append(c1.getNameofCommittees());
+        sb.append(" , The chairman: ").append(c1.getChairman().getName());
         sb.append(" , Lecturers list: [");
         for (int j = 0; j < lectSize; j++) {
             if (j == 0){
                 sb.append(l1[j].getName());
             }else {
-                sb.append(", " + l1[j].getName());
+                sb.append(", ").append(l1[j].getName());
             }
         }
         sb.append("] \n");
         return sb.toString();
     }
 
-    public static String printNamesFromCommittee(Committees c1, Lecturer[] l1, int lectSize){
+
+    public static String printNamesFromCommittee(Lecturer[] l1, int lectSize){
         StringBuilder sb = new StringBuilder();
         sb.append("Committee lecturers list: [");
         for (int j = 0; j < lectSize; j++) {
             if (j == 0){
                 sb.append(l1[j].getName());
             }else {
-                sb.append(", " + l1[j].getName());
+                sb.append(", ").append(l1[j].getName());
             }
         }
         sb.append("] \n");
@@ -120,7 +121,7 @@ public class Util {
 
     public static String printNames(Lecturer[] arr, int size, String deptName){
         StringBuilder sb = new StringBuilder();
-        sb.append(deptName + " lecturers are: [");
+        sb.append(deptName).append(" lecturers are: [");
         for (int i = 0; i < size; i++) {
             sb.append(arr[i].getName());
             if (i < size-1 && arr[i] != null){
@@ -160,14 +161,5 @@ public class Util {
             }
         }
         return null;
-    }
-
-
-    public static StringBuilder showInfo(Lecturer[] arr, int numOfLecturers){
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < numOfLecturers; i++) {
-            sb.append("Name: " + arr[i].getName() + ", ID: " + arr[i].getId() + ", Degree: " + arr[i].getDegree() + ", Degree name: " + arr[i].getNameOfDegree() + ", Salary: " + arr[i].getSalary() + ", Department: " + arr[i].getDepartment() + "\n");
-        }
-        return sb;
     }
 }

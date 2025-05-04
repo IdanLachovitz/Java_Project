@@ -147,7 +147,7 @@ public class College {
         float sum = 0;
         if (!Util.isExist(deptName, departments, numOfDepartment)){
             return -1;
-        } else if (Util.getDepartmentFromName(deptName, departments).getArrLecturer() == null){
+        } else if (Util.getDepartmentFromName(deptName, departments).getNumOfLecturer() == 0){
             return -2;
         }
         for (int i = 0; i < Util.getDepartmentFromName(deptName,departments).getNumOfLecturer(); i++) {

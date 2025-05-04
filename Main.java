@@ -22,7 +22,7 @@ public class Main {
             "add Department",
             "add Lecturer To Department",
             "show Average Lecturers Salary",
-            "show Average Salary FromSpecific Department",
+            "show Average Salary From Specific Department",
             "show Lecturers Info",
             "show Committee Info"
 
@@ -170,7 +170,7 @@ public class Main {
         System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("Enter lecturer name: ");
-        System.out.println(Util.printNamesFromCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
+        System.out.println(Util.printNamesFromCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         String name = s.nextLine();
         eStatus stat = college.removeFromCommittee(name, committeeName);
         switch (stat){
