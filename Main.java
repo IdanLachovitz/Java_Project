@@ -24,7 +24,10 @@ public class Main {
             "show Average Lecturers Salary",
             "show Average Salary From Specific Department",
             "show Lecturers Info",
-            "show Committee Info"
+            "show Committee Info",
+            "comparison between doc and prof by articles",
+            "department comparison",
+            "copy committee to new department"
 
     };
 
@@ -45,11 +48,15 @@ public class Main {
                 case 9 -> showAverageSalaryFromSpecificDepartment(college);
                 case 10 -> showLecturersInfo(college.getLecturer(), college.getNumOfLecturer());
                 case 11 -> showCommitteesInfo(college.getCommittees(), college.getNumOfCommittee());
+                case 12 -> docProfCompare(college);
+                case 13 -> departmentComparison();
+                case 14 -> copyCommittee(college);
 
                 default -> System.out.println("Unexpected value");
             }
         } while (userChosen != 0);
     }
+
 
     private static void addLecturer(College college) {
         s.nextLine();
@@ -83,15 +90,26 @@ public class Main {
                     salary = s.nextInt();
                     s.nextLine();
                 }
-                eStatus stat = college.addLecturer(name, id, deg, salary, nameOfDegree);
-                switch (stat){
-                    case SUCCESS -> System.out.println(eStatus.SUCCESS);
-                    case LECTURER_EXISTS -> System.out.println(eStatus.LECTURER_EXISTS);
-                }
-                if (stat == eStatus.SUCCESS){
+                try{
+                    if (degree == 3){
+                        System.out.println("Enter the articles: ");
+                        String articles = s.nextLine();
+                        college.addLecturer(name, id, deg, salary, nameOfDegree, articles.split(" "));
+                    } else if (degree == 4){
+                        System.out.println("Enter the articles: ");
+                        String articles = s.nextLine();
+                        System.out.println("Enter professorship name: ");
+                        String professorshipName = s.nextLine();
+                        college.addLecturer(name, id, deg, salary, nameOfDegree, articles.split(" "), professorshipName);
+                    } else {
+                        college.addLecturer(name, id, deg, salary, nameOfDegree);
+                    }
+                } catch (LecturerException e){
+                    System.out.println(e.getMessage());
+                }finally {
                     System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
-                    break;
                 }
+                break;
             }
         }
     }
@@ -272,6 +290,24 @@ public class Main {
         }
     }
 
+
+    private static void docProfCompare(College college) {
+
+    }
+
+
+    private static void departmentComparison() {
+    }
+
+
+    private static void copyCommittee(College college) {
+        s.nextLine();
+        System.out.println("Enter committee name you want to copy: ");
+        System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
+        String committeeName = s.nextLine();
+        eStatus stat = college.copyCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()));
+
+    }
 
     private static int showMenu(Scanner s) {
         System.out.println("\n====== Menu =======");

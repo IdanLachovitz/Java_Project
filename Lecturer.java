@@ -14,16 +14,11 @@ public class Lecturer {
     private int numOfCommittees;
 
     public Lecturer(String name, String id, eDegree degree, int salary, String nameOfDegree) {
-        this(name,id,degree,salary,nameOfDegree,null);
-    }
-
-    public Lecturer(String name, String id, eDegree degree,int salary, String nameOfDegree, String department) {
         setName(name);
         setId(id);
         setDegree(degree);
         setNameOfDegree(nameOfDegree);
         setSalary(salary);
-        setDepartment(department);
         committees = new Committees[0];
     }
 

@@ -17,6 +17,12 @@ public class Committees {
         this.numOfLecturer = 0;
     }
 
+    public Committees(Committees other) {
+        this(other.nameOfCommittee+"-new", other.chairman);
+        this.lecturers = Arrays.copyOf(other.lecturers, other.numOfLecturer);
+        this.numOfLecturer = other.numOfLecturer;
+    }
+
 
     public void removeLecturerByName(String name) {
         for (int i = 0; i < numOfLecturer; i++) {

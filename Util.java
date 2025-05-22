@@ -31,14 +31,6 @@ public class Util {
     }
 
 
-    public static boolean isDocOrPro(Lecturer lecturer){
-        if (lecturer.getDegree().equals(Lecturer.eDegree.DOCTOR) || lecturer.getDegree().equals(Lecturer.eDegree.PROFESSOR)){
-            return true;
-        }
-        return false;
-    }
-
-
     public static Lecturer getLecturerFromName(String name, Lecturer[] lecturers){
         for (Lecturer lecturer : lecturers){
             if (lecturer.getName().equals(name)){
