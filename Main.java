@@ -1,5 +1,6 @@
 package Idan_Lachovitz_Idan_Pekler_Part2;
 
+import java.net.CookieHandler;
 import java.util.Scanner;
 
 public class Main {
@@ -60,6 +61,7 @@ public class Main {
 
     private static void addLecturer(College college) {
         s.nextLine();
+        boolean bool = false;
         while (true) {
             System.out.println("Enter lecturer name: (press 0 to return to the menu) ");
             String name = s.nextLine();
@@ -106,7 +108,10 @@ public class Main {
                     }
                 } catch (LecturerException e){
                     System.out.println(e.getMessage());
-                }finally {
+                    bool = true;
+                }
+                if (bool == false){
+                    System.out.println(eStatus.SUCCESS);
                     System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
                 }
                 break;
@@ -117,18 +122,19 @@ public class Main {
 
     private static void addCommittee(College college) {
         s.nextLine();
+        boolean bool = false;
         System.out.println("Enter committee name: ");
         String committeeName = s.nextLine();
         System.out.println("Enter chairhead name: ");
         String chairman = s.nextLine();
-        eStatus stat = college.addCommittee(committeeName, chairman);
-        switch (stat){
-            case SUCCESS -> System.out.println(eStatus.SUCCESS);
-            case COMMITTEE_EXIST -> System.out.println(eStatus.COMMITTEE_EXIST);
-            case LECTURER_NOT_DOC_OR_PRO -> System.out.println(eStatus.LECTURER_NOT_DOC_OR_PRO);
-            case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
+        try {
+            college.addCommittee(committeeName, chairman);
+        } catch (CommitteeException | LecturerException e){
+            System.out.println(e.getMessage());
+            bool = true;
         }
-        if (stat == eStatus.SUCCESS){
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
             System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         }
     }
@@ -136,21 +142,21 @@ public class Main {
 
     private static void addLecturerToCommittee(College college) {
         s.nextLine();
+        boolean bool = false;
         System.out.println("Enter committee name: ");
         System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("Enter lecturer name: ");
         System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String name = s.nextLine();
-        eStatus stat = college.addLecturerToCommittee(committeeName, name);
-        switch (stat){
-            case SUCCESS -> System.out.println(eStatus.SUCCESS);
-            case COMMITTEE_DONT_EXIST -> System.out.println(eStatus.COMMITTEE_DONT_EXIST);
-            case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
-            case LECTURER_EXISTS -> System.out.println(eStatus.LECTURER_EXISTS_IN_COMMITTEE);
-            case LECTURER_IS_THE_CHAIRMAN -> System.out.println(eStatus.LECTURER_IS_THE_CHAIRMAN);
+        try {
+            college.addLecturerToCommittee(committeeName, name);
+        } catch (CommitteeException | LecturerException e){
+            System.out.println(e.getMessage());
+            bool = true;
         }
-        if (stat == eStatus.SUCCESS){
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
             Util.getLecturerFromName(name, college.getLecturer()).setCommittees(Util.getCommitteeFromName(committeeName, college.getCommittees()));
             System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
@@ -159,24 +165,22 @@ public class Main {
 
     private static void updateChairman(College college){
         s.nextLine();
+        boolean bool = false;
         System.out.println("What Committee: ");
         System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("enter new head of committee: ");
         System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String newChairMan = s.nextLine();
-        eStatus stat = college.updateChairman(committeeName, newChairMan);
-        if (Util.getCommitteeFromName(committeeName,college.getCommittees()) == null){
-            stat = eStatus.COMMITTEE_DONT_EXIST;
+        try{
+            college.updateChairman(committeeName, newChairMan);
+            Util.getCommitteeFromName(committeeName,college.getCommittees());
+        } catch (CommitteeException | LecturerException e){
+            System.out.println(e.getMessage());
+            bool = true;
         }
-        switch (stat){
-            case SUCCESS -> System.out.println(eStatus.SUCCESS);
-            case LECTURER_NOT_DOC_OR_PRO -> System.out.println(eStatus.LECTURER_NOT_DOC_OR_PRO);
-            case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
-            case COMMITTEE_DONT_EXIST -> System.out.println(eStatus.COMMITTEE_DONT_EXIST);
-            case LECTURER_IS_THE_CHAIRMAN -> System.out.println(eStatus.LECTURER_IS_THE_CHAIRMAN);
-        }
-        if (stat == eStatus.SUCCESS){
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
             System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
     }
@@ -184,35 +188,40 @@ public class Main {
 
     private static void removeFromCommittee(College college) {
         s.nextLine();
+        boolean bool = false;
         System.out.println("Enter committee name: ");
         System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
         System.out.println("Enter lecturer name: ");
         System.out.println(Util.printNamesFromCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         String name = s.nextLine();
-        eStatus stat = college.removeFromCommittee(name, committeeName);
-        switch (stat){
-            case SUCCESS -> System.out.println(eStatus.SUCCESS);
-            case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
-            case COMMITTEE_DONT_EXIST -> System.out.println(eStatus.COMMITTEE_DONT_EXIST);
-            case LECTURER_NOT_EXISTS_IN_COMMITTEE -> System.out.println(eStatus.LECTURER_NOT_EXISTS_IN_COMMITTEE);
+        try{
+            college.removeFromCommittee(name, committeeName);
+        } catch (CommitteeException | LecturerException e){
+            System.out.println(e.getMessage());
+            bool = true;
         }
-        if (stat == eStatus.SUCCESS){
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
             System.out.println(Util.printNames(Util.getCommitteeFromName(committeeName, college.getCommittees()), Util.getCommitteeFromName(committeeName, college.getCommittees()).getLecturers(), Util.getCommitteeFromName(committeeName, college.getCommittees()).getNumofLecturer()));
         }
+
     }
 
 
     private static void addDepartment(College college) {
         s.nextLine();
+        boolean bool = false;
         System.out.println("Enter department name: ");
         String depName = s.nextLine();
-        eStatus stat = college.addDepartment(depName);
-        switch (stat){
-            case SUCCESS -> System.out.println(eStatus.SUCCESS);
-            case DEPARTMENT_EXIST -> System.out.println(eStatus.DEPARTMENT_EXIST);
+        try {
+            college.addDepartment(depName);
+        } catch (DepartmentException e){
+            System.out.println(e.getMessage());
+            bool = true;
         }
-        if (stat == eStatus.SUCCESS){
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
             System.out.println(Util.printNames(college.getDepartments(), college.getNumOfDepartment()));
         }
     }
@@ -220,46 +229,56 @@ public class Main {
 
     private static void addLecturerToDepartment(College college) {
         s.nextLine();
+        boolean bool = false;
         System.out.println("Enter department name: ");
         System.out.println(Util.printNames(college.getDepartments(), college.getNumOfDepartment()));
         String deptName = s.nextLine();
         System.out.println("Enter lecturer name: ");
         System.out.println(Util.printNames(college.getLecturer(), college.getNumOfLecturer()));
         String lectName = s.nextLine();
-        eStatus stat = college.addLecturerToDepartment(lectName,deptName);
-        switch (stat) {
-            case SUCCESS -> System.out.println(eStatus.SUCCESS);
-            case LECTURER_DONT_EXIST -> System.out.println(eStatus.LECTURER_DONT_EXIST);
-            case DEPARTMENT_DONT_EXIST -> System.out.println(eStatus.DEPARTMENT_DONT_EXIST);
-            case LECTURER_EXISTS_IN_DEPARTMENT -> System.out.println(eStatus.LECTURER_EXISTS_IN_DEPARTMENT);
+        try {
+            college.addLecturerToDepartment(lectName,deptName);
+        } catch (LecturerException | DepartmentException e){
+            System.out.println(e.getMessage());
+            bool = true;
         }
-        if (stat == eStatus.SUCCESS){
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
             System.out.println(Util.printNames(Util.getDepartmentFromName(deptName, college.getDepartments()).getArrLecturer(), Util.getDepartmentFromName(deptName, college.getDepartments()).getNumOfLecturer(), deptName));
         }
     }
 
 
     private static void showAverageProfessorsSalary(College college) {
-        float sum = college.showAverageProfessorsSalary();
-        if (sum == -1){
-            System.out.println(eStatus.GENERAL_ERROR);
-        }else {
+        float sum = 0;
+        boolean bool = false;
+        try {
+            sum = college.showAverageProfessorsSalary();
+        } catch (ArithmeticException e){
+            System.out.println(e.getMessage());
+            bool = true;
+        }
+        if (bool == false){
             System.out.println(eStatus.AVERAGE_SALARY + " " + sum);
         }
+
     }
 
 
     private static void showAverageSalaryFromSpecificDepartment(College college) {
         s.nextLine();
+        boolean bool = false;
+        float sum = 0;
         System.out.println("Enter department name: ");
         System.out.println(Util.printNames(college.getDepartments(), college.getNumOfDepartment()));
         String deptName = s.nextLine();
-        float sum = college.showAverageSalaryFromSpecificDepartment(deptName);
-        if (sum == -1){
-            System.out.println(eStatus.DEPARTMENT_DONT_EXIST);
-        }else if (sum == -2){
-            System.out.println(eStatus.LECTURER_NOT_EXISTS_IN_DEPARTMENT);
-        } else {
+        try {
+            sum = college.showAverageSalaryFromSpecificDepartment(deptName);
+        } catch (DepartmentException e){
+            System.out.println(e.getMessage());
+            bool = true;
+        }
+        if (bool == false){
             System.out.println(eStatus.AVERAGE_SALARY + " " + sum);
         }
     }
@@ -302,12 +321,22 @@ public class Main {
 
     private static void copyCommittee(College college) {
         s.nextLine();
+        Boolean bool = false;
         System.out.println("Enter committee name you want to copy: ");
         System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
         String committeeName = s.nextLine();
-        eStatus stat = college.copyCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()));
-
+        try{
+            college.copyCommittee(Util.getCommitteeFromName(committeeName, college.getCommittees()));
+        } catch (CommitteeException e){
+            System.out.println(e.getMessage());
+            bool = true;
+        }
+        if (bool == false){
+            System.out.println(eStatus.SUCCESS);
+            System.out.println(Util.printNames(college.getCommittees(), college.getNumOfCommittee()));
+        }
     }
+
 
     private static int showMenu(Scanner s) {
         System.out.println("\n====== Menu =======");
