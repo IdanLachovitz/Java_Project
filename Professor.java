@@ -13,4 +13,5 @@ public class Professor extends Doctor implements Comparable<Doctor>{
     public int compareTo(Doctor o) {
         return super.compareTo(o);
     }
+
 }

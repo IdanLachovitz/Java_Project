@@ -6,4 +6,5 @@ public class DepartmentException extends CollegeExceptions {
   public DepartmentException(String message) {
     super(PRE_MESSAGE+message);
   }
+
 }

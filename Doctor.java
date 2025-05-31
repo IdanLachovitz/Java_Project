@@ -25,4 +25,5 @@ public class Doctor extends Lecturer implements Comparable<Doctor>{
                 ", articles=" + Arrays.toString(articles) +
                 ", numOfArticles=" + numOfArticles;
     }
+
 }

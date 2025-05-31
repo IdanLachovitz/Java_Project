@@ -6,4 +6,5 @@ public class CollegeExceptions extends Exception{
     public CollegeExceptions(String message) {
         super(PRE_MESSAGE+message);
     }
+
 }

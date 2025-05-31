@@ -7,4 +7,5 @@ public class CommitteeException extends CollegeExceptions {
     public CommitteeException(String message) {
         super(PRE_MESSAGE+message);
     }
+
 }

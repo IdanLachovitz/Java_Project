@@ -5,4 +5,5 @@ public class LecturerException extends CollegeExceptions {
   public LecturerException(String message) {
     super(PRE_MESSAGE+message);
   }
+
 }

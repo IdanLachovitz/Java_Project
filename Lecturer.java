@@ -101,5 +101,6 @@ public class Lecturer {
                 ", committees=" + committees + '\'' +
                 '}';
     }
+
 }
 

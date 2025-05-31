@@ -59,4 +59,5 @@ public class Department {
                 ", arrLecturer=" + Arrays.toString(arrLecturer) +
                 '}';
     }
+
 }

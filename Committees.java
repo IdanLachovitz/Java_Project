@@ -102,4 +102,5 @@ public class Committees implements Cloneable{
     public Committees clone() throws CloneNotSupportedException{
         return (Committees) super.clone();
     }
+
 }
