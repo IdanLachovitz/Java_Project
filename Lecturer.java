@@ -3,15 +3,15 @@ package Idan_Lachovitz_Idan_Pekler_Part2;
 import java.util.Arrays;
 
 public class Lecturer {
-    private String name;
-    private String id;
-    private eDegree degree;
+    protected String name;
+    protected String id;
+    protected eDegree degree;
     public enum eDegree{BSc,MSc,DOCTOR,PROFESSOR};
-    private String nameOfDegree;
-    private int salary;
-    private String department;
-    private Committees[] committees;
-    private int numOfCommittees;
+    protected String nameOfDegree;
+    protected int salary;
+    protected String department;
+    protected Committees[] committees;
+    protected int numOfCommittees;
 
     public Lecturer(String name, String id, eDegree degree, int salary, String nameOfDegree) {
         setName(name);

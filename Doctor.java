@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Doctor extends Lecturer implements Comparable<Doctor>{
 
-    private String[] articles;
-    private int numOfArticles;
+    protected String[] articles;
+    protected int numOfArticles;
 
     public Doctor(String name, String id, eDegree degree, int salary, String nameOfDegree, String[] articles) {
         super(name, id, degree, salary, nameOfDegree);
@@ -17,6 +17,7 @@ public class Doctor extends Lecturer implements Comparable<Doctor>{
     public int compareTo(Doctor o) {
         return Integer.compare(o.numOfArticles, this.numOfArticles);
     }
+
 
     @Override
     public String toString() {

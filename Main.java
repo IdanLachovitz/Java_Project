@@ -327,7 +327,7 @@ public class Main {
         }
         switch (choose){
             case 1 -> college.doctorsCompare();
-//            case 2 -> professorsCompare();
+            case 2 -> college.professorsCompare();
         }
     }
 

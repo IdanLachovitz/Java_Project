@@ -48,7 +48,7 @@ public class College {
         if (numOfLecturer == lecturer.length) {
             lecturer = Arrays.copyOf(lecturer, numOfLecturer == 0 ? 2 : numOfLecturer * 2);
         }
-        lecturer[numOfLecturer++] = new Proffesor(name, id, degree, salary, nameOfDegree, articles, professorshipName);
+        lecturer[numOfLecturer++] = new Professor(name, id, degree, salary, nameOfDegree, articles, professorshipName);
     }
 
 
@@ -59,7 +59,7 @@ public class College {
         if (Util.isExist(committeeName, committees, numOfCommittee)) {
             throw new CommitteeException(eStatus.COMMITTEE_EXIST.toString());
         }
-        if (Util.getLecturerFromName(chairman, lecturer) instanceof Doctor || Util.getLecturerFromName(chairman, lecturer) instanceof Proffesor) {
+        if (Util.getLecturerFromName(chairman, lecturer) instanceof Doctor || Util.getLecturerFromName(chairman, lecturer) instanceof Professor) {
             if (numOfCommittee == committees.length) {
                 committees = Arrays.copyOf(committees, numOfCommittee == 0 ? 2 : numOfCommittee * 2);
             }
@@ -90,7 +90,7 @@ public class College {
         if (!Util.isExist(newChairMan, lecturer, numOfLecturer)) {
             throw new LecturerException(eStatus.LECTURER_DONT_EXIST.toString());
         } else {
-            if (!(Util.getLecturerFromName(newChairMan, lecturer) instanceof Doctor || Util.getLecturerFromName(newChairMan, lecturer) instanceof Proffesor)){
+            if (!(Util.getLecturerFromName(newChairMan, lecturer) instanceof Doctor || Util.getLecturerFromName(newChairMan, lecturer) instanceof Professor)){
                 throw new CommitteeException(eStatus.LECTURER_NOT_DOC_OR_PRO.toString());
             }else{
                 if (Util.getCommitteeFromName(committeeName, committees) != null) {
@@ -181,15 +181,25 @@ public class College {
                 d[numOfDoc++] = doc;
             }
         }
-        Arrays.sort(d, 0, numOfDoc);
-        for (Doctor doc: d){
-            System.out.println(doc);
+        Arrays.sort(d);
+        for (int i = 0; i < numOfDoc; i++) {
+            System.out.println(d[i]);
         }
-//        System.out.println(Util.printNames(d, numOfDoc));
     }
 
-    private static void professorsCompare() {
 
+    public void professorsCompare() {
+        Professor[] p = new Professor[numOfLecturer];
+        int numOfProf = 0;
+        for (int i = 0; i < numOfLecturer; i++) {
+            if (lecturer[i] instanceof Professor prof){
+                p[numOfProf++] = prof;
+            }
+        }
+        Arrays.sort(p);
+        for (int i = 0; i < numOfProf; i++) {
+            System.out.println(p[i]);
+        }
     }
 
 
