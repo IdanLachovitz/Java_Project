@@ -2,7 +2,7 @@ package Idan_Lachovitz_Idan_Pekler_Part2;
 
 import java.util.Arrays;
 
-public class Committees {
+public class Committees implements Cloneable{
 
     private String nameOfCommittee;
     private Lecturer[] lecturers;
@@ -96,5 +96,10 @@ public class Committees {
                 ", numOfLecturer=" + numOfLecturer +
                 ", chairman=" + chairman +
                 '}';
+    }
+
+    @Override
+    public Committees clone() throws CloneNotSupportedException{
+        return (Committees) super.clone();
     }
 }

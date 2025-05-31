@@ -1,6 +1,7 @@
 package Idan_Lachovitz_Idan_Pekler_Part2;
 
 import java.net.CookieHandler;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -27,8 +28,8 @@ public class Main {
             "show Lecturers Info",
             "show Committee Info",
             "comparison between doc and prof by articles",
-            "department comparison",
-            "copy committee to new department"
+            "committee comparison",
+            "copy committee to new committee"
 
     };
 
@@ -83,14 +84,16 @@ public class Main {
                 s.nextLine();
                 System.out.println("Enter name of the degree: ");
                 String nameOfDegree = s.nextLine();
-                System.out.println("Enter your salary: ");
-                int salary = s.nextInt();
-                s.nextLine();
-                while (salary < 0){
-                    System.out.println("Salary cant be negative");
-                    System.out.println("Enter your salary: ");
-                    salary = s.nextInt();
-                    s.nextLine();
+                int salary;
+                while (true) {
+                    try {
+                        System.out.println("Enter your salary: ");
+                        salary = s.nextInt();
+                        s.nextLine();
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 try{
                     if (degree == 3){
@@ -311,8 +314,23 @@ public class Main {
 
 
     private static void docProfCompare(College college) {
-
+        s.nextLine();
+        int choose;
+        while (true){
+            try{
+                System.out.println("Which one do you want to compare?\n1)Doctors\n2)Professors");
+                choose = s.nextInt();
+                break;
+            }catch (NumberFormatException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        switch (choose){
+            case 1 -> college.doctorsCompare();
+//            case 2 -> professorsCompare();
+        }
     }
+
 
 
     private static void departmentComparison() {

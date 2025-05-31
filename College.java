@@ -173,6 +173,26 @@ public class College {
     }
 
 
+    public void doctorsCompare() {
+        Doctor[] d = new Doctor[numOfLecturer];
+        int numOfDoc = 0;
+        for (int i = 0; i < numOfLecturer; i++) {
+            if (lecturer[i] instanceof Doctor doc){
+                d[numOfDoc++] = doc;
+            }
+        }
+        Arrays.sort(d, 0, numOfDoc);
+        for (Doctor doc: d){
+            System.out.println(doc);
+        }
+//        System.out.println(Util.printNames(d, numOfDoc));
+    }
+
+    private static void professorsCompare() {
+
+    }
+
+
     public void copyCommittee(Committees c) throws CommitteeException{
         if (!Util.isExist(c.getNameofCommittees(), committees, numOfCommittee)) {
             throw new CommitteeException(eStatus.COMMITTEE_DONT_EXIST.toString());
@@ -180,7 +200,15 @@ public class College {
         if (numOfCommittee == committees.length) {
             committees = Arrays.copyOf(committees, numOfCommittee == 0 ? 2 : numOfCommittee * 2);
         }
-        committees[numOfCommittee++] = new Committees(c);
+        try{
+            Committees newCommittee = c.clone();
+            newCommittee.setNameofCommittees(newCommittee.getNameofCommittees() + "-new");
+            committees[numOfCommittee++] = newCommittee;
+        } catch (CloneNotSupportedException e){
+            System.out.println(e.getMessage());
+            throw new CommitteeException(eStatus.COMMITTEE_DONT_EXIST.toString());
+        }
+
     }
 
 
