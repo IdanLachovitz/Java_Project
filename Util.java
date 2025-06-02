@@ -154,5 +154,17 @@ public class Util {
         }
         return null;
     }
+
+
+    public static int getNumOfArticles(Committees c){
+        int sum = ((Doctor) c.getChairman()).getNumOfArticles();
+        for (int i = 0; i < c.getNumofLecturer(); i++) {
+            if (c.getLecturers()[i] instanceof Doctor d){
+                sum += d.getNumOfArticles();
+            }
+        }
+        return sum;
+    }
 }
+
 

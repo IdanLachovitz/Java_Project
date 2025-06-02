@@ -18,13 +18,6 @@ public class Committees implements Cloneable{
     }
 
 
-    public Committees(Committees other) {
-        this(other.nameOfCommittee+"-new", other.chairman);
-        this.lecturers = Arrays.copyOf(other.lecturers, other.numOfLecturer);
-        this.numOfLecturer = other.numOfLecturer;
-    }
-
-
     public void removeLecturerByName(String name) {
         for (int i = 0; i < numOfLecturer; i++) {
             if (lecturers[i].getName().equals(name)) {
@@ -88,10 +81,22 @@ public class Committees implements Cloneable{
         this.chairman = chairman;
     }
 
+
+    public String toStringCommByLecturers(){
+        return "name of committee: " + nameOfCommittee +
+                ", " + Util.printNames(lecturers, numOfLecturer) +
+                ", num of lecturers: " + numOfLecturer;
+    }
+
+    public String toStringCommByArticles(){
+        return "name of committee: " + nameOfCommittee +
+                ", num of articles: " + Util.getNumOfArticles(this);
+    }
+
     @Override
     public String toString() {
         return "Committees{" +
-                "nameOfCommittee='" + nameOfCommittee + '\'' +
+                "name of committee='" + nameOfCommittee + '\'' +
                 ", lecturers=" + Arrays.toString(lecturers) +
                 ", numOfLecturer=" + numOfLecturer +
                 ", chairman=" + chairman +

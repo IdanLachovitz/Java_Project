@@ -13,6 +13,14 @@ public class Doctor extends Lecturer implements Comparable<Doctor>{
         this.numOfArticles = articles.length;
     }
 
+    public int getNumOfArticles() {
+        return numOfArticles;
+    }
+
+    public String[] getArticles() {
+        return articles;
+    }
+
     @Override
     public int compareTo(Doctor o) {
         return Integer.compare(o.numOfArticles, this.numOfArticles);

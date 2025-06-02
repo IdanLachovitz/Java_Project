@@ -51,7 +51,7 @@ public class Main {
                 case 10 -> showLecturersInfo(college.getLecturer(), college.getNumOfLecturer());
                 case 11 -> showCommitteesInfo(college.getCommittees(), college.getNumOfCommittee());
                 case 12 -> docProfCompare(college);
-                case 13 -> departmentComparison();
+                case 13 -> committeeComparison(college);
                 case 14 -> copyCommittee(college);
 
                 default -> System.out.println("Unexpected value");
@@ -332,7 +332,25 @@ public class Main {
     }
 
 
-    private static void departmentComparison() {
+    private static void committeeComparison(College college) {
+        s.nextLine();
+        int choice;
+        while (true){
+            try {
+                System.out.println("Which type of comparison do you want?\n1)By num of lecturers\n2)By sum of articles");
+                choice = s.nextInt();
+                if (choice <=2 && choice>=1){
+                    break;
+                }
+            } catch (NumberFormatException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        switch (choice){
+            case 1 -> college.CompareComByNumOfLecturers();
+            case 2 -> college.CompareComByNumOfArticles();
+        }
+
     }
 
 

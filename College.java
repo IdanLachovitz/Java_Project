@@ -203,6 +203,24 @@ public class College {
     }
 
 
+    public void CompareComByNumOfLecturers(){
+        Committees[] c = committees.clone();
+        Arrays.sort(c, new CompareComByNumOfLecturers());
+        for (int i = 0; i < numOfCommittee; i++) {
+            System.out.println(c[i].toStringCommByLecturers());
+        }
+    }
+
+
+    public void CompareComByNumOfArticles(){
+        Committees[] c = committees.clone();
+        Arrays.sort(c, new CompareComByNumOfArticles());
+        for (int i = 0; i < numOfCommittee; i++) {
+            System.out.println(c[i].toStringCommByArticles());
+        }
+    }
+
+
     public void copyCommittee(Committees c) throws CommitteeException{
         if (!Util.isExist(c.getNameofCommittees(), committees, numOfCommittee)) {
             throw new CommitteeException(eStatus.COMMITTEE_DONT_EXIST.toString());
